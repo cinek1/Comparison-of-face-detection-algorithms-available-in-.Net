@@ -1,0 +1,23 @@
+﻿<Window x:Class="ComparingApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ComparingApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"> </ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <TextBlock Text="Haar cascade" FontSize="20"></TextBlock>
+            <Image Name="Image_HaarCascade" Source="{Binding ImageViewer , UpdateSourceTrigger=PropertyChanged}" ></Image>
+        </StackPanel>
+        <StackPanel  Grid.Column="1">
+            <TextBlock Text="Ultra Face" FontSize="20"> </TextBlock>
+            <Image Name="Image_UltraFace" Source="{Binding ImageViewer , UpdateSourceTrigger=PropertyChanged}"></Image>
+        </StackPanel>
+    </Grid>
+</Window>
