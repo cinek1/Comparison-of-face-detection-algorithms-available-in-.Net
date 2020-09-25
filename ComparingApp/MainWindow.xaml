@@ -10,14 +10,19 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"> </ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0">
+        <StackPanel Grid.Column="0" VerticalAlignment="Center">
             <TextBlock Text="Haar cascade" FontSize="20"></TextBlock>
             <Image Name="Image_HaarCascade" Source="{Binding ImageViewer , UpdateSourceTrigger=PropertyChanged}" ></Image>
         </StackPanel>
-        <StackPanel  Grid.Column="1">
+        <StackPanel  Grid.Column="1"  VerticalAlignment="Center">
             <TextBlock Text="Ultra Face" FontSize="20"> </TextBlock>
             <Image Name="Image_UltraFace" Source="{Binding ImageViewer , UpdateSourceTrigger=PropertyChanged}"></Image>
+        </StackPanel>
+        <StackPanel  Grid.Column="2"  VerticalAlignment="Center">
+            <TextBlock Text="Dnn" FontSize="20"></TextBlock>
+            <Image Name="Image_Dnn" Source="{Binding ImageViewer , UpdateSourceTrigger=PropertyChanged}"></Image>
         </StackPanel>
     </Grid>
 </Window>

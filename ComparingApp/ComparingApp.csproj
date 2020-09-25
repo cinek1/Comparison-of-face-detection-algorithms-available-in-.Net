@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="5.2.0" />
+    <PackageReference Include="Emgu.CV" Version="4.4.0.4061" />
+    <PackageReference Include="Emgu.CV.runtime.windows" Version="4.4.0.4061" />
     <PackageReference Include="OpenCvSharp4" Version="4.4.0.20200915" />
     <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.4.0.20200915" />
     <PackageReference Include="OpenCvSharp4.Windows" Version="4.4.0.20200915" />
@@ -17,6 +19,12 @@
 
   <ItemGroup>
     <None Update="Classifiers\haarcascade_frontalface_default.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Classifiers\opencv_face_detector.pbtxt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Classifiers\opencv_face_detector_uint8.pb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Classifiers\slim_320.bin">

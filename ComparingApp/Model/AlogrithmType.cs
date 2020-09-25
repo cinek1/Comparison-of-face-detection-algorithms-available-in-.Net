@@ -1,6 +1,6 @@
 ﻿
 namespace ComparingApp.Model
 {
-    public enum AlogrithmType { HaarCascade, UltraFace}
+    public enum AlogrithmType { HaarCascade, UltraFace, Dnn}
 
 }

@@ -19,8 +19,10 @@ namespace ComparingApp
             var builder = new ContainerBuilder();
             builder.RegisterType<HaarCascadeFaceDetector>().Keyed<IDetectFace>(Model.AlogrithmType.HaarCascade);
             builder.RegisterType<UltraFaceDetection>().Keyed<IDetectFace>(Model.AlogrithmType.UltraFace);
+            builder.RegisterType<DnnFaceDetector>().Keyed<IDetectFace>(Model.AlogrithmType.Dnn);
             builder.RegisterType<UltraFaceViewModel>().Keyed<AlgorithmViewModel>(Model.AlogrithmType.UltraFace).SingleInstance();
             builder.RegisterType<HaarCascadeViewModel>().Keyed<AlgorithmViewModel>(Model.AlogrithmType.HaarCascade).SingleInstance();
+            builder.RegisterType<DnnViewModel>().Keyed<AlgorithmViewModel>(Model.AlogrithmType.Dnn).SingleInstance();
             builder.RegisterType<MainWindow>().SingleInstance();
             builder.RegisterType<CameraCapture>().SingleInstance(); 
             container = builder.Build(); 

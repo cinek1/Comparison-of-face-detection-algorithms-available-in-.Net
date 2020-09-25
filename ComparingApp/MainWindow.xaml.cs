@@ -16,6 +16,7 @@ namespace ComparingApp
             InitializeComponent();
             Image_HaarCascade.DataContext = algorithmsViewModels[Model.AlogrithmType.HaarCascade];
             Image_UltraFace.DataContext = algorithmsViewModels[Model.AlogrithmType.UltraFace];
+            Image_Dnn.DataContext = algorithmsViewModels[Model.AlogrithmType.Dnn]; 
         }
     }
 }
