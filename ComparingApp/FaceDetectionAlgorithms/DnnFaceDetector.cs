@@ -2,6 +2,7 @@
 using Emgu.CV;
 using Emgu.CV.Dnn;
 using Emgu.CV.Structure;
+using Microsoft.Extensions.Configuration;
 using OpenCvSharp;
 using System;
 using System.Runtime.InteropServices;
@@ -14,13 +15,13 @@ namespace ComparingApp.FaceDetectionAlgorithms
         private Net _net;
         private readonly int _height;
         private readonly int _width;
-        private readonly double _probability; 
-        public DnnFaceDetector()
+        private readonly double _probability;
+        public DnnFaceDetector(IConfiguration configuration)
         {
-            _height = 480;
-            _width = 640;
-            _probability = 0.7; 
-            _net = DnnInvoke.ReadNetFromTensorflow("Classifiers/opencv_face_detector_uint8.pb", "Classifiers/opencv_face_detector.pbtxt");
+            int.TryParse(configuration["Algos:Dnn:Height"], out _height);
+            int.TryParse(configuration["Algos:Dnn:Width"], out _width);
+            double.TryParse(configuration["Algos:Dnn:Probability"], out _probability);
+            _net = DnnInvoke.ReadNetFromTensorflow(configuration["Algos:Dnn:BinFilePath"], configuration["Algos:Dnn:ParamFilePath"]);
         }
         public Mat Detect(Mat mat)
         {

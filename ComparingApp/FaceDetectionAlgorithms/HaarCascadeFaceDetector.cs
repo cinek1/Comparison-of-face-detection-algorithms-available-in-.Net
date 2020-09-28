@@ -1,23 +1,30 @@
 ﻿using ComparingApp.Interfaces;
 using OpenCvSharp;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
-using System.Linq; 
+using System.Linq;
+using Microsoft.Extensions.Configuration;
+
 namespace ComparingApp.FaceDetectionAlgorithms
 {
     class HaarCascadeFaceDetector : IDetectFace
     {
+        private readonly int minimumNeighbors;
+        private readonly decimal scaleFactor;
+        private readonly int minSizeWidth;
+        private readonly int minSizeHeight;
+        private readonly CascadeClassifier cascadeClassifier;
 
-        private readonly string classifierPath = "Classifiers/haarcascade_frontalface_default.xml"; 
+        public HaarCascadeFaceDetector(IConfiguration configuration)
+        {
+            int.TryParse(configuration["Algos:HarrCascade:MinimumNeighbors"], out minimumNeighbors);
+            decimal.TryParse(configuration["Algos:HarrCascade:ScaleFactor"], out scaleFactor);
+            int.TryParse(configuration["Algos:HarrCascade:MinSizeWidth"], out minSizeWidth);
+            int.TryParse(configuration["Algos:HarrCascade:MinSizeHeight"], out minSizeHeight);
+            cascadeClassifier = new CascadeClassifier(configuration["Algos:HarrCascade:CascadeClassifier"]);
+        }
+
         public Mat Detect(Mat mat)
         {
-            var minimumNeighbors = 5;
-            var scaleFactor = 1.3M;
-            var minSizeWidth = 50;
-            var minSizeHeight = 50;
-            var cascadeClassifier = new CascadeClassifier(classifierPath);
             using (var gray = new Mat())
             {
                 Cv2.CvtColor(InputArray.Create(mat), OutputArray.Create(gray), ColorConversionCodes.BGR2GRAY);

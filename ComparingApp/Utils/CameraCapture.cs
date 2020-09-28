@@ -3,7 +3,9 @@ using ComparingApp.Interfaces;
 using OpenCvSharp;
 using System;
 using System.Threading.Tasks;
-using System.Collections.Generic; 
+using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
+
 namespace ComparingApp.Utils
 {
     public class CameraCapture
@@ -11,17 +13,25 @@ namespace ComparingApp.Utils
 
         private readonly VideoCapture _videoCapture;
         private readonly Mat _cameraFrame;
+        private readonly int cameraId; 
         private IIndex<Model.AlogrithmType, AlgorithmViewModel> algorithms; 
-        public CameraCapture(IIndex<Model.AlogrithmType, AlgorithmViewModel> algorithmsViewModels)
+        public CameraCapture(IIndex<Model.AlogrithmType, AlgorithmViewModel> algorithmsViewModels, IConfiguration configuration)
         {
+            int.TryParse(configuration["CameraCapture:Height"], out int height);
+            int.TryParse(configuration["CameraCapture:Width"], out int width);
             algorithms = algorithmsViewModels; 
-            _videoCapture = new VideoCapture();
+            _videoCapture = new VideoCapture()
+            {
+                FrameHeight = height,
+                FrameWidth = width
+            };
             _cameraFrame = new Mat();
-            algorithms = algorithmsViewModels; 
+            algorithms = algorithmsViewModels;
+            int.TryParse(configuration["CameraCapture:CameraId"], out cameraId); 
         }
         public bool OpenCamera() 
         {
-            _videoCapture.Open(0);
+            _videoCapture.Open(cameraId);
             return _videoCapture.IsOpened();
         }
 

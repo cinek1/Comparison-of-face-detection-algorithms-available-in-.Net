@@ -3,22 +3,24 @@ using OpenCvSharp;
 using System.Linq;
 using System.Collections.Generic;
 using UltraFaceDotNet;
+using Microsoft.Extensions.Configuration;
+
 namespace ComparingApp.FaceDetectionAlgorithms
 {
     class UltraFaceDetection : IDetectFace
     {
         private readonly UltraFaceParameter _param;
 
-        public UltraFaceDetection()
+        public UltraFaceDetection(IConfiguration configuration)
         {
-           _param = new UltraFaceParameter
+            _param = new UltraFaceParameter
             {
-                BinFilePath = "Classifiers/slim_320.bin",
-                ParamFilePath = "Classifiers/slim_320.param",
-                InputWidth = 320,
-                InputLength = 240,
-                NumThread = 1,
-                ScoreThreshold = 0.8f
+                BinFilePath = configuration["Algos:UltraFace:BinFilePath"],
+                ParamFilePath = configuration["Algos:UltraFace:ParamFilePath"],
+                InputWidth = int.Parse(configuration["Algos:UltraFace:InputWidth"]),
+                InputLength = int.Parse(configuration["Algos:UltraFace:InputLength"]),
+                NumThread = int.Parse(configuration["Algos:UltraFace:NumThread"]),
+                ScoreThreshold = float.Parse(configuration["Algos:UltraFace:ScoreThreshold"])
             };
         }
         public Mat Detect(Mat mat)
