@@ -28,13 +28,17 @@ namespace ComparingApp
                 .WithParameter(new TypedParameter(typeof(IConfiguration), Configuration));
             builder.RegisterType<DnnFaceDetector>().Keyed<IDetectFace>(Model.AlogrithmType.Dnn)
                 .WithParameter(new TypedParameter(typeof(IConfiguration), Configuration));
-                
+            builder.RegisterType<DlibAlgorithm>().Keyed<IDetectFace>(Model.AlogrithmType.Dlib)
+                .WithParameter(new TypedParameter(typeof(IConfiguration), Configuration));
+
             builder.RegisterType<UltraFaceViewModel>().Keyed<AlgorithmViewModel>(Model.AlogrithmType.UltraFace)
                 .SingleInstance();
             builder.RegisterType<HaarCascadeViewModel>().Keyed<AlgorithmViewModel>(Model.AlogrithmType.HaarCascade)
                 .SingleInstance();
             builder.RegisterType<DnnViewModel>().Keyed<AlgorithmViewModel>(Model.AlogrithmType.Dnn)
                 .SingleInstance();
+            builder.RegisterType<DlibViewModel>().Keyed<AlgorithmViewModel>(Model.AlogrithmType.Dlib)
+               .SingleInstance();
             builder.RegisterType<MainWindow>().SingleInstance();
             builder.RegisterType<CameraCapture>().SingleInstance()
                 .WithParameter(new TypedParameter(typeof(IConfiguration), Configuration)); 
