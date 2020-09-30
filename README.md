@@ -17,3 +17,6 @@ A real time application that compares four libraries to face detection avaible i
 - The app settings are loaded from appsetting.json file. 
 User can change application propeties in appsettings.json file. (For example user can change camera device id or algorithm resolution in this file.)
 - App uses .Net core in version 3.1. 
+
+
+## The app is still writing, the first version has not been realesed. 
