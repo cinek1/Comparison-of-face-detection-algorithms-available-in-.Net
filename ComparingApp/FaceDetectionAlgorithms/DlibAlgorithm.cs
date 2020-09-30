@@ -10,7 +10,7 @@ namespace ComparingApp.FaceDetectionAlgorithms
         private  FaceRecognition _faceRecognition;
         public DlibAlgorithm()
         {
-            _faceRecognition = FaceRecognition.Create(@"Classifiers\dlib-models\");
+            _faceRecognition = FaceRecognition.Create(@"Classifiers\dlib-model\");
         }
 
         public Mat Detect(Mat mat)
