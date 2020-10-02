@@ -4,7 +4,7 @@ A real time application that compares four libraries to face detection avaible i
 ## Face detection libraries that was compared. 
 
 - [FaceRecognitionDotNet](https://github.com/takuya-takeuchi/FaceRecognitionDotNet).
-- [UltraFaceDotNet](https://github.com/takuya-takeuchi/UltraFaceDotNet). Dlib models is from here https://github.com/davisking/dlib-models. 
+- [UltraFaceDotNet](https://github.com/takuya-takeuchi/UltraFaceDotNet). Dlib model is from here https://github.com/davisking/dlib-models. 
 - [HarrCascade](https://github.com/shimat/opencvsharp).
 - [Dnn](https://github.com/emgucv). 
 
