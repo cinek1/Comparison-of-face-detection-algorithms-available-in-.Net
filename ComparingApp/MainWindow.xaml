@@ -16,37 +16,46 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Column="0" VerticalAlignment="Center">
-            <Image Name="Image_HaarCascade" Source="{Binding ImageViewer , UpdateSourceTrigger=PropertyChanged}" ></Image>
+        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+            <Grid>
+                <Image Name="Image_HaarCascade" Source="{Binding ImageViewer , UpdateSourceTrigger=PropertyChanged}" ></Image>
             <TextBlock Text="HaarCascade" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20">
                 <TextBlock.Effect>
                     <DropShadowEffect ShadowDepth="0" Color="Black" BlurRadius="10" />
                 </TextBlock.Effect>
             </TextBlock>
-        </Grid>
-        <Grid  Grid.Column="1"  VerticalAlignment="Center">
+            </Grid>
+    </StackPanel>
+        <StackPanel  Grid.Column="1"  VerticalAlignment="Center">
+            <Grid>
             <Image Name="Image_UltraFace" Source="{Binding ImageViewer , UpdateSourceTrigger=PropertyChanged}"></Image>
             <TextBlock Text="UltraFace" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20">
                 <TextBlock.Effect>
                     <DropShadowEffect ShadowDepth="0" Color="Black" BlurRadius="10" />
                 </TextBlock.Effect>
             </TextBlock>
-        </Grid>
-        <Grid  Grid.Column="1" Grid.Row="1"  VerticalAlignment="Center">
+            </Grid>
+        </StackPanel>
+  
+    <StackPanel  Grid.Column="1" Grid.Row="1"  VerticalAlignment="Center">
+            <Grid>
             <Image Name="Image_Dnn" Source="{Binding ImageViewer , UpdateSourceTrigger=PropertyChanged}"></Image>
             <TextBlock Text="Dnn" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20">
                 <TextBlock.Effect>
                     <DropShadowEffect ShadowDepth="0" Color="Black" BlurRadius="10" />
                 </TextBlock.Effect>
             </TextBlock>
-        </Grid>
-        <Grid  Grid.Column="0"   Grid.Row="1">
+            </Grid>
+        </StackPanel>
+        <StackPanel  Grid.Column="0"   Grid.Row="1">
+            <Grid>
             <Image Name="Image_Dlib"  Source="{Binding ImageViewer , UpdateSourceTrigger=PropertyChanged}" ></Image>
             <TextBlock Text="Dlib" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20">
                 <TextBlock.Effect>
                     <DropShadowEffect ShadowDepth="0" Color="Black" BlurRadius="10" />
                 </TextBlock.Effect>
             </TextBlock>
-        </Grid>
+            </Grid>
+        </StackPanel>
     </Grid>
 </Window>

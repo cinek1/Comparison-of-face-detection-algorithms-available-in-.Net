@@ -39,7 +39,7 @@ namespace ComparingApp.Utils
         {
             if (!_videoCapture.IsOpened())
             {
-                throw new Exception("DetectPresence: videoCapture is not opened");
+                return new Mat("cameraProblem.jpg");
             }
             _videoCapture.Read(_cameraFrame);
             var frame = _cameraFrame.Clone();
