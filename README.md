@@ -1,6 +1,9 @@
 # Comparison-of-face-detection-algorithms-available-in-.Net
 A real time application that compares four libraries to face detection avaible in C#. 
 
+![Screenshot](ComparingApp.png)
+
+
 ## Face detection libraries that was compared. 
 
 - [FaceRecognitionDotNet](https://github.com/takuya-takeuchi/FaceRecognitionDotNet).
@@ -19,4 +22,3 @@ User can change application propeties in appsettings.json file. (For example use
 - App uses .Net core in version 3.1. 
 
 
-## The app is still writing, the first version has not been realesed. 
