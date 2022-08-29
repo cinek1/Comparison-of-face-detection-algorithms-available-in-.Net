@@ -22,3 +22,8 @@ User can change application propeties in appsettings.json file. (For example use
 - App uses .Net core in version 3.1. 
 
 
+# 2022 to do
+
+- bump to .net6
+- use default .net DI container 
+- use the newest version of algorithms
