@@ -2,7 +2,9 @@
 using ComparingApp.Interfaces;
 using ComparingApp.Utils;
 using System.Windows;
-
+using System.Linq;
+using System.Collections.Generic;
+using ComparingApp.ViewModel;
 
 namespace ComparingApp
 {
@@ -11,13 +13,19 @@ namespace ComparingApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(IIndex<Model.AlogrithmType, AlgorithmViewModel> algorithmsViewModels)
+        public MainWindow(IEnumerable<IDetectFace> algorithms, AlgorithmViewModelFactory factory)
         {
             InitializeComponent();
-            Image_HaarCascade.DataContext = algorithmsViewModels[Model.AlogrithmType.HaarCascade];
-            Image_UltraFace.DataContext = algorithmsViewModels[Model.AlogrithmType.UltraFace];
-            Image_Dnn.DataContext = algorithmsViewModels[Model.AlogrithmType.Dnn];
-            Image_Dlib.DataContext = algorithmsViewModels[Model.AlogrithmType.Dlib]; 
+            InitialiazeAlgorithms(algorithms, factory); 
+        }
+
+        private void InitialiazeAlgorithms(IEnumerable<IDetectFace> algorithms, AlgorithmViewModelFactory factory)
+        {
+            var algorithmsDict = algorithms.ToDictionary(w => w.AlogrithmType, w => w);
+            Image_HaarCascade.DataContext = factory.Create(algorithmsDict[Model.AlogrithmType.HaarCascade]);
+            Image_UltraFace.DataContext = factory.Create(algorithmsDict[Model.AlogrithmType.UltraFace]);
+            Image_Dnn.DataContext = factory.Create(algorithmsDict[Model.AlogrithmType.Dnn]);
+            Image_Dlib.DataContext = factory.Create(algorithmsDict[Model.AlogrithmType.Dlib]);
         }
     }
 }

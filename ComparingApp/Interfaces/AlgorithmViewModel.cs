@@ -10,10 +10,23 @@ using System.Windows.Media.Imaging;
 
 namespace ComparingApp.Interfaces
 {
-    public abstract class AlgorithmViewModel : INotifyPropertyChanged
+    public class AlgorithmViewModel : INotifyPropertyChanged
     {
-        public abstract void Update(Mat mat);
         private BitmapImage _imageViewer;
+
+        private readonly IDetectFace _detectFace;
+        public AlgorithmViewModel(IDetectFace detect)
+        {
+            _detectFace = detect;
+        }
+        public void Update(Mat mat)
+        {
+            _detectFace.Detect(mat);
+            Bitmap bitmapImage = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(mat);
+            ImageViewer = ConvertToBitmatImage(bitmapImage);
+            mat.Dispose();
+        }
+
         public BitmapImage ImageViewer
         {
             get

@@ -1,4 +1,5 @@
 ﻿using ComparingApp.Interfaces;
+using ComparingApp.Model;
 using Emgu.CV;
 using Emgu.CV.Dnn;
 using Emgu.CV.Structure;
@@ -16,6 +17,9 @@ namespace ComparingApp.FaceDetectionAlgorithms
         private readonly int _height;
         private readonly int _width;
         private readonly double _probability;
+
+        public AlogrithmType AlogrithmType => AlogrithmType.Dnn;
+
         public DnnFaceDetector(IConfiguration configuration)
         {
             int.TryParse(configuration["Algos:Dnn:Height"], out _height);

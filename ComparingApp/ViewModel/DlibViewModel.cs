@@ -1,26 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
-using Autofac.Features.Indexed;
-using ComparingApp.Interfaces;
-using OpenCvSharp;
+﻿using ComparingApp.Interfaces;
 
 namespace ComparingApp.ViewModel
 {
-    class DlibViewModel : AlgorithmViewModel
+    public class AlgorithmViewModelFactory
     {
-        private readonly IDetectFace _detectFace;
-        public DlibViewModel(IIndex<Model.AlogrithmType, IDetectFace> viewers)
+        public AlgorithmViewModel Create(IDetectFace detectFace)
         {
-            _detectFace = viewers[Model.AlogrithmType.Dlib];
-        }
-        public override void Update(Mat mat)
-        {
-            _detectFace.Detect(mat);
-            Bitmap bitmapImage = OpenCvSharp.Extensions.BitmapConverter.ToBitmap(mat);
-            ImageViewer = base.ConvertToBitmatImage(bitmapImage);
-            mat.Dispose();
+            return new AlgorithmViewModel(detectFace); 
         }
     }
 }

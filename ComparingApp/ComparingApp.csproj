@@ -15,6 +15,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.8" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.8" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.8" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="OpenCvSharp4" Version="4.4.0.20200915" />
     <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.4.0.20200915" />
     <PackageReference Include="OpenCvSharp4.Windows" Version="4.4.0.20200915" />

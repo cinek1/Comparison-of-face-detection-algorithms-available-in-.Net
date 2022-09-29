@@ -7,6 +7,8 @@ using ComparingApp.Utils;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using Microsoft.Extensions.DependencyInjection;
+using ComparingApp.Extensions;
 
 namespace ComparingApp
 {
@@ -15,52 +17,39 @@ namespace ComparingApp
     /// </summary>
     public partial class App : Application
     {
-        private readonly IContainer container;
+        private readonly IServiceCollection services;
         public IConfigurationRoot Configuration { get; private set; }
 
         public App() : base()
         {
-            BuildConfiguration(); 
-            var builder = new ContainerBuilder();
-            builder.RegisterType<HaarCascadeFaceDetector>().Keyed<IDetectFace>(Model.AlogrithmType.HaarCascade)
-                .WithParameter(new TypedParameter(typeof(IConfiguration), Configuration));
-            builder.RegisterType<UltraFaceDetection>().Keyed<IDetectFace>(Model.AlogrithmType.UltraFace)
-                .WithParameter(new TypedParameter(typeof(IConfiguration), Configuration));
-            builder.RegisterType<DnnFaceDetector>().Keyed<IDetectFace>(Model.AlogrithmType.Dnn)
-                .WithParameter(new TypedParameter(typeof(IConfiguration), Configuration));
-            builder.RegisterType<DlibAlgorithm>().Keyed<IDetectFace>(Model.AlogrithmType.Dlib)
-                .WithParameter(new TypedParameter(typeof(IConfiguration), Configuration));
-
-            builder.RegisterType<UltraFaceViewModel>().Keyed<AlgorithmViewModel>(Model.AlogrithmType.UltraFace)
-                .SingleInstance();
-            builder.RegisterType<HaarCascadeViewModel>().Keyed<AlgorithmViewModel>(Model.AlogrithmType.HaarCascade)
-                .SingleInstance();
-            builder.RegisterType<DnnViewModel>().Keyed<AlgorithmViewModel>(Model.AlogrithmType.Dnn)
-                .SingleInstance();
-            builder.RegisterType<DlibViewModel>().Keyed<AlgorithmViewModel>(Model.AlogrithmType.Dlib)
-               .SingleInstance();
-            builder.RegisterType<MainWindow>().SingleInstance();
-            builder.RegisterType<CameraCapture>().SingleInstance()
-                .WithParameter(new TypedParameter(typeof(IConfiguration), Configuration)); 
-            
-            container = builder.Build(); 
+            services = new ServiceCollection();
         }
         private void OnStartup(object sender, StartupEventArgs e)
         {
-            var mainWindow = container.Resolve<MainWindow>();
+            RegisterServices(services, BuildConfiguration());
+            var srvProvider = services.BuildServiceProvider(); 
+            var mainWindow = srvProvider.GetRequiredService<MainWindow>();
+            var cameraCapture = srvProvider.GetRequiredService<CameraCapture>();
             mainWindow.Show();
-            var cameraCapture = container.Resolve<CameraCapture>();
             cameraCapture.OpenCamera();
             Task.Run(() => cameraCapture.DetectPresence());
         }
 
-        private void BuildConfiguration()
+        private IConfiguration BuildConfiguration()
         {
-            var conf = new ConfigurationBuilder()
+            return new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-            Configuration = conf.Build(); 
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build(); 
         }
-        
+
+        private IServiceCollection RegisterServices(IServiceCollection services, IConfiguration configuration)
+        {
+            return services.AddFaceDetectionAlgorithms()
+                           .AddSingleton<AlgorithmViewModelFactory>()
+                           .AddSingleton<MainWindow>()
+                           .AddSingleton<CameraCapture>()
+                           .AddSingleton(configuration);
+        }
     }
 }

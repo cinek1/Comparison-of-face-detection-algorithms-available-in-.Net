@@ -1,4 +1,5 @@
 ﻿using ComparingApp.Interfaces;
+using ComparingApp.Model;
 using FaceRecognitionDotNet;
 using OpenCvSharp;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace ComparingApp.FaceDetectionAlgorithms
         {
             _faceRecognition = FaceRecognition.Create(@"Classifiers\dlib-model\");
         }
+
+        public AlogrithmType AlogrithmType => AlogrithmType.Dlib;
 
         public Mat Detect(Mat mat)
         {

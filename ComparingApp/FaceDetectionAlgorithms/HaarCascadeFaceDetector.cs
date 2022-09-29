@@ -3,6 +3,7 @@ using OpenCvSharp;
 using System;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
+using ComparingApp.Model;
 
 namespace ComparingApp.FaceDetectionAlgorithms
 {
@@ -22,6 +23,8 @@ namespace ComparingApp.FaceDetectionAlgorithms
             int.TryParse(configuration["Algos:HarrCascade:MinSizeHeight"], out minSizeHeight);
             cascadeClassifier = new CascadeClassifier(configuration["Algos:HarrCascade:CascadeClassifier"]);
         }
+
+        public AlogrithmType AlogrithmType => AlogrithmType.HaarCascade;
 
         public Mat Detect(Mat mat)
         {

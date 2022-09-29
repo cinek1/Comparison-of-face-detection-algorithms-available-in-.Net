@@ -4,6 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UltraFaceDotNet;
 using Microsoft.Extensions.Configuration;
+using ComparingApp.Model;
 
 namespace ComparingApp.FaceDetectionAlgorithms
 {
@@ -23,6 +24,9 @@ namespace ComparingApp.FaceDetectionAlgorithms
                 ScoreThreshold = float.Parse(configuration["Algos:UltraFace:ScoreThreshold"])
             };
         }
+
+        public AlogrithmType AlogrithmType => AlogrithmType.UltraFace;
+
         public Mat Detect(Mat mat)
         {
             using (var ultraFace = UltraFace.Create(_param))
