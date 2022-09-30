@@ -25,5 +25,6 @@ User can change application propeties in appsettings.json file. (For example use
 # 2022 to do
 
 - bump to .net6
-- use default .net DI container 
+- use default .net DI container - done
+- refactor code
 - use the newest version of algorithms
