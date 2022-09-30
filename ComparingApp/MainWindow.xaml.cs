@@ -1,6 +1,4 @@
-﻿using Autofac.Features.Indexed;
-using ComparingApp.Interfaces;
-using ComparingApp.Utils;
+﻿using ComparingApp.Interfaces;
 using System.Windows;
 using System.Linq;
 using System.Collections.Generic;
@@ -13,13 +11,13 @@ namespace ComparingApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(IEnumerable<IDetectFace> algorithms, AlgorithmViewModelFactory factory)
+        public MainWindow(IEnumerable<IDetectFace> algorithms, AlgorithmViewModelProvider factory)
         {
             InitializeComponent();
             InitialiazeAlgorithms(algorithms, factory); 
         }
 
-        private void InitialiazeAlgorithms(IEnumerable<IDetectFace> algorithms, AlgorithmViewModelFactory factory)
+        private void InitialiazeAlgorithms(IEnumerable<IDetectFace> algorithms, AlgorithmViewModelProvider factory)
         {
             var algorithmsDict = algorithms.ToDictionary(w => w.AlogrithmType, w => w);
             Image_HaarCascade.DataContext = factory.Create(algorithmsDict[Model.AlogrithmType.HaarCascade]);

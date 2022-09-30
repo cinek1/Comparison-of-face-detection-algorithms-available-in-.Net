@@ -1,10 +1,8 @@
-﻿using Autofac.Features.Indexed;
-using ComparingApp.Interfaces;
-using OpenCvSharp;
-using System;
+﻿using OpenCvSharp;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
+using ComparingApp.ViewModel;
 
 namespace ComparingApp.Utils
 {
@@ -14,8 +12,8 @@ namespace ComparingApp.Utils
         private readonly VideoCapture _videoCapture;
         private readonly Mat _cameraFrame;
         private readonly int cameraId; 
-        private IIndex<Model.AlogrithmType, AlgorithmViewModel> algorithms; 
-        public CameraCapture(IIndex<Model.AlogrithmType, AlgorithmViewModel> algorithmsViewModels, IConfiguration configuration)
+        private readonly AlgorithmViewModelProvider algorithms; 
+        public CameraCapture(AlgorithmViewModelProvider algorithmsViewModels, IConfiguration configuration)
         {
             int.TryParse(configuration["CameraCapture:Height"], out int height);
             int.TryParse(configuration["CameraCapture:Width"], out int width);
@@ -51,12 +49,12 @@ namespace ComparingApp.Utils
             {
                 using (var matOne = TakePhoto())
                 {
-                    List<Task> listOfDetctionTask = new List<Task>(); 
-                    foreach (var algo in Enum.GetValues(typeof(Model.AlogrithmType)))
+                    var listOfDetctionTask = new List<Task>(); 
+                    foreach (var algo in algorithms.Get())
                     {
                         Mat matToCheck = new Mat(); 
                         matOne.CopyTo(matToCheck);
-                        listOfDetctionTask.Add(new Task(() => algorithms[(Model.AlogrithmType)algo].Update(matToCheck))); 
+                        listOfDetctionTask.Add(new Task(() => algo.Update(matToCheck))); 
                     }
                     listOfDetctionTask.ForEach(w => w.Start());
                     listOfDetctionTask.ForEach(w => w.Wait()); 

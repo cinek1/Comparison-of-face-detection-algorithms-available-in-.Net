@@ -1,7 +1,4 @@
-﻿using Autofac;
-using ComparingApp.FaceDetectionAlgorithms;
-using ComparingApp.Interfaces;
-using System.Windows;
+﻿using System.Windows;
 using ComparingApp.ViewModel;
 using ComparingApp.Utils;
 using System.Threading.Tasks;
@@ -46,7 +43,7 @@ namespace ComparingApp
         private IServiceCollection RegisterServices(IServiceCollection services, IConfiguration configuration)
         {
             return services.AddFaceDetectionAlgorithms()
-                           .AddSingleton<AlgorithmViewModelFactory>()
+                           .AddSingleton<AlgorithmViewModelProvider>()
                            .AddSingleton<MainWindow>()
                            .AddSingleton<CameraCapture>()
                            .AddSingleton(configuration);
